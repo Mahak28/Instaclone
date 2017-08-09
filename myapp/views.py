@@ -34,8 +34,6 @@ def signup_view(request):
         today = datetime.now()
     return render(request, 'index.html', {'today': today, 'form': form})
 
-    return render(request, 'index.html', {'form': form})
-
 
 def login_view(request):
     response_data = {}
@@ -154,6 +152,10 @@ def comment_view(request):
             sentiment = requests.get(request_url, verify=False).json()
             sentiment_value = sentiment['sentiment']
             print sentiment_value
+            if sentiment_value < 0.5:
+                print 'Negative Comment'
+            else:
+                print 'Positive Comment'
 
             print 'commented'
             return redirect('/feed/')
